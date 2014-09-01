@@ -6,8 +6,6 @@ class Validate extends \Decouple\Console\Command {
   public function execute(Log $log, Env $env) : void {
     $log->log("Validating configuration...");
     $lambda = (...) ==> print_r(func_get_args()[0]);
-    $emitter->on('test', $lambda);
-    $emitter->trigger('test', 'Testing');
     $config = \Decouple\Repo\Console\Service\Validator::getConfig($env);
     $validator = \Decouple\Repo\Console\Service\Validator::validate($config);
     $gh_not_installed = (int)$validator->get('gh_not_installed');
