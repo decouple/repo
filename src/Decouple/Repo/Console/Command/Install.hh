@@ -31,12 +31,11 @@ class Install extends \Decouple\Console\Command {
             $version = (string)$version;
             $command = sprintf("git submodule add -b %s https://github.com/%s.git ./vendor/%s", $version, $repo, $repo);
             $log->log(sprintf("Cloning %s:%s", $repo, $version));
+            $output[] = getExecOutput($command, $root);
             $full_command .= $command . ' & ';
           }
         }
-        $full_command = substr($full_command, 0, -3);
-        $output = getExecOutput($full_command, $root);
-        getExecOutput('git submodule update', $root);
+        $output[] = getExecOutput('git submodule update', $root);
         if($output) {
           $log->log("Installation complete.\n");
         }
