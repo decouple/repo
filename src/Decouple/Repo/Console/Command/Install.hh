@@ -36,6 +36,7 @@ class Install extends \Decouple\Console\Command {
         }
         $full_command = substr($full_command, 0, -3);
         $output = getExecOutput($full_command, $root);
+        $output = array_merge($output, getExecOutput('git submodule update', $root));
         if($output) {
           $log->log("Installation complete.\n");
         }
