@@ -2,9 +2,8 @@
 namespace Decouple\Repo\Console\Command;
 use \Decouple\Console\Service\Log;
 use \Decouple\Console\Service\Env;
-use \Decouple\Event\Emitter;
 class Validate extends \Decouple\Console\Command {
-  public function execute(Log $log, Env $env, Emitter $emitter) : void {
+  public function execute(Log $log, Env $env) : void {
     $log->log("Validating configuration...");
     $lambda = (...) ==> print_r(func_get_args()[0]);
     $emitter->on('test', $lambda);
