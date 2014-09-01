@@ -20,7 +20,7 @@ class Install extends \Decouple\Console\Command {
       }
       // Install packages!!!
       $to_install = $validator->get('to_install');
-      $full_command = 'cd ' . $root . '/vendor ; ';
+      $full_command = '';
       @mkdir($root . '/vendor');
       chdir($root . '/vendor');
       if(is_array($to_install)) {
@@ -29,7 +29,7 @@ class Install extends \Decouple\Console\Command {
             list($repo,$version) = $repo;
             $repo = (string)$repo;
             $version = (string)$version;
-            $command = sprintf("git clone -b %s https://github.com/%s.git %s", $version, $repo, $repo);
+            $command = sprintf("git submodule add -b %s https://github.com/%s.git ./vendor/%s", $version, $repo, $repo);
             $log->log(sprintf("Cloning %s:%s", $repo, $version));
             $full_command .= $command . ' & ';
           }
